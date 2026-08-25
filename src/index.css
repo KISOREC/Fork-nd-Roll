@@ -226,6 +226,10 @@ main {
   background: var(--accent-surface-hover);
 }
 
+.surprise-button {
+  white-space: nowrap;
+}
+
 .theme-toggle {
   min-height: 42px;
   border: 1px solid var(--input-border);
@@ -639,9 +643,14 @@ main {
   }
 
   .nav-links,
-  .nav-search {
+  .nav-search,
+  .surprise-button {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .surprise-button {
+    width: 100%;
   }
 
   .nav-search input,
