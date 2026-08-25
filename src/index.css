@@ -113,7 +113,8 @@ main {
 
 .nav-search input:focus,
 .movie-search input:focus,
-.genre-filter select:focus {
+.genre-filter select:focus,
+.rating-sort select:focus {
   outline: 3px solid rgba(215, 38, 61, 0.16);
   border-color: #d7263d;
 }
@@ -256,7 +257,8 @@ main {
   gap: 12px;
 }
 
-.genre-filter {
+.genre-filter,
+.rating-sort {
   display: grid;
   gap: 6px;
   color: #506071;
@@ -264,7 +266,8 @@ main {
   font-weight: 800;
 }
 
-.genre-filter select {
+.genre-filter select,
+.rating-sort select {
   min-width: 150px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
@@ -504,7 +507,8 @@ main {
 
   .nav-search input,
   .movie-search input,
-  .genre-filter select {
+  .genre-filter select,
+  .rating-sort select {
     width: 100%;
   }
 
