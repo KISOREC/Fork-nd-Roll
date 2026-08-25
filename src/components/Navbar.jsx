@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import movies from "../data/movies.js";
 
 function Navbar({ watchlistCount, theme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,6 +11,13 @@ function Navbar({ watchlistCount, theme, onToggleTheme }) {
   function handleSubmit(event) {
     event.preventDefault();
     navigate(`/?search=${encodeURIComponent(searchText.trim())}`);
+    setMenuOpen(false);
+  }
+
+  function handleSurpriseMe() {
+    const movie = movies[Math.floor(Math.random() * movies.length)];
+
+    navigate(`/movies/${movie.id}`);
     setMenuOpen(false);
   }
 
@@ -43,6 +51,15 @@ function Navbar({ watchlistCount, theme, onToggleTheme }) {
             Watchlist ({watchlistCount})
           </NavLink>
         </div>
+
+        <button
+          className="button button-small surprise-button"
+          type="button"
+          onClick={handleSurpriseMe}
+          aria-label="Surprise me with a random movie"
+        >
+          Surprise Me
+        </button>
 
         <button
           className="theme-toggle"
