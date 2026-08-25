@@ -9,6 +9,8 @@ import movies from "./data/movies.js";
 
 const WATCHLIST_STORAGE_KEY = "cineScopeWatchlist";
 const THEME_STORAGE_KEY = "cineScopeTheme";
+const RECENTLY_VIEWED_STORAGE_KEY = "cineScopeRecentlyViewed";
+const RECENTLY_VIEWED_LIMIT = 5;
 
 function getStoredTheme() {
   const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
@@ -37,9 +39,33 @@ function getStoredWatchlist() {
   }
 }
 
+function getStoredRecentlyViewed() {
+  try {
+    const storedRecentlyViewed = JSON.parse(
+      window.localStorage.getItem(RECENTLY_VIEWED_STORAGE_KEY)
+    );
+    const validMovieIds = new Set(movies.map((movie) => movie.id));
+
+    if (!Array.isArray(storedRecentlyViewed)) {
+      return [];
+    }
+
+    return [...new Set(storedRecentlyViewed)]
+      .filter(
+        (movieId) => Number.isInteger(movieId) && validMovieIds.has(movieId)
+      )
+      .slice(0, RECENTLY_VIEWED_LIMIT);
+  } catch {
+    return [];
+  }
+}
+
 function App() {
   const [watchlistIds, setWatchlistIds] = useState(getStoredWatchlist);
   const [theme, setTheme] = useState(getStoredTheme);
+  const [recentlyViewedIds, setRecentlyViewedIds] = useState(
+    getStoredRecentlyViewed
+  );
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -47,6 +73,13 @@ function App() {
       JSON.stringify(watchlistIds)
     );
   }, [watchlistIds]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      RECENTLY_VIEWED_STORAGE_KEY,
+      JSON.stringify(recentlyViewedIds)
+    );
+  }, [recentlyViewedIds]);
 
   useEffect(() => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
@@ -67,6 +100,19 @@ function App() {
     );
   }
 
+  function recordRecentlyViewed(movieId) {
+    setRecentlyViewedIds((currentRecentlyViewed) => {
+      if (currentRecentlyViewed[0] === movieId) {
+        return currentRecentlyViewed;
+      }
+
+      return [
+        movieId,
+        ...currentRecentlyViewed.filter((id) => id !== movieId)
+      ].slice(0, RECENTLY_VIEWED_LIMIT);
+    });
+  }
+
   return (
     <div className="app" data-theme={theme}>
       <Navbar
@@ -82,6 +128,7 @@ function App() {
               <Home
                 watchlistIds={watchlistIds}
                 onToggleWatchlist={toggleWatchlist}
+                recentlyViewedIds={recentlyViewedIds}
               />
             }
           />
@@ -91,6 +138,7 @@ function App() {
               <Home
                 watchlistIds={watchlistIds}
                 onToggleWatchlist={toggleWatchlist}
+                recentlyViewedIds={recentlyViewedIds}
               />
             }
           />
@@ -100,6 +148,7 @@ function App() {
               <MovieDetails
                 watchlistIds={watchlistIds}
                 onToggleWatchlist={toggleWatchlist}
+                onViewMovie={recordRecentlyViewed}
               />
             }
           />

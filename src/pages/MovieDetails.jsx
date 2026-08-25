@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import movies from "../data/movies.js";
 
-function MovieDetails({ watchlistIds, onToggleWatchlist }) {
+function MovieDetails({ watchlistIds, onToggleWatchlist, onViewMovie }) {
   const { movieId } = useParams();
   const movie = movies.find((item) => item.id === Number(movieId));
+
+  useEffect(() => {
+    if (movie) {
+      onViewMovie(movie.id);
+    }
+  }, [movie, onViewMovie]);
 
   if (!movie) {
     return (

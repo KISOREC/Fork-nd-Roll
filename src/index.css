@@ -326,6 +326,28 @@ main {
   letter-spacing: 0;
 }
 
+.recently-viewed {
+  margin: 34px 0;
+}
+
+.recently-viewed-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.recently-viewed-heading h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+.recently-viewed-heading span {
+  color: var(--secondary-text);
+  font-weight: 800;
+}
+
 .movie-search {
   display: grid;
   gap: 6px;
@@ -631,6 +653,11 @@ main {
 
   .section-heading {
     align-items: stretch;
+    flex-direction: column;
+  }
+
+  .recently-viewed-heading {
+    align-items: flex-start;
     flex-direction: column;
   }
 
