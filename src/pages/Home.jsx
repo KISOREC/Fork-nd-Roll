@@ -13,7 +13,7 @@ const genres = [
   "Animation"
 ];
 
-function Home() {
+function Home({ watchlistIds, onToggleWatchlist }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
   const [ratingSort, setRatingSort] = useState("highest");
@@ -104,7 +104,11 @@ function Home() {
         </div>
       </section>
 
-      <MovieGrid movies={sortedMovies} />
+      <MovieGrid
+        movies={sortedMovies}
+        watchlistIds={watchlistIds}
+        onToggleWatchlist={onToggleWatchlist}
+      />
     </>
   );
 }

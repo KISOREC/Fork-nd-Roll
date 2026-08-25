@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ watchlistCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -38,6 +38,9 @@ function Navbar() {
           </NavLink>
           <NavLink to="/movies" onClick={() => setMenuOpen(false)}>
             Movies
+          </NavLink>
+          <NavLink to="/watchlist" onClick={() => setMenuOpen(false)}>
+            Watchlist ({watchlistCount})
           </NavLink>
         </div>
 

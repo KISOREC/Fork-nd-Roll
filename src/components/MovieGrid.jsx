@@ -1,7 +1,7 @@
 import React from "react";
 import MovieCard from "./MovieCard.jsx";
 
-function MovieGrid({ movies }) {
+function MovieGrid({ movies, watchlistIds, onToggleWatchlist }) {
   if (movies.length === 0) {
     return (
       <div className="empty-state">
@@ -14,7 +14,12 @@ function MovieGrid({ movies }) {
   return (
     <section className="movie-grid" aria-label="Movie collection">
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          isInWatchlist={watchlistIds.includes(movie.id)}
+          onToggleWatchlist={onToggleWatchlist}
+        />
       ))}
     </section>
   );
