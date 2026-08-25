@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-function Navbar({ watchlistCount }) {
+function Navbar({ watchlistCount, theme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -43,6 +43,16 @@ function Navbar({ watchlistCount }) {
             Watchlist ({watchlistCount})
           </NavLink>
         </div>
+
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+          title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+        >
+          {theme === "light" ? "☾ Dark" : "☀ Light"}
+        </button>
 
         <form className="nav-search" onSubmit={handleSubmit}>
           <input
