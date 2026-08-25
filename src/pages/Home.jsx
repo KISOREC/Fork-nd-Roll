@@ -16,6 +16,7 @@ const genres = [
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
+  const [ratingSort, setRatingSort] = useState("highest");
   const searchTerm = searchParams.get("search") || "";
   const featuredMovie = movies.find((movie) => movie.featured) || movies[0];
 
@@ -24,6 +25,11 @@ function Home() {
   );
   const filteredMovies = titleFilteredMovies.filter(
     (movie) => selectedGenre === "All Genres" || movie.genre === selectedGenre
+  );
+  const sortedMovies = [...filteredMovies].sort((firstMovie, secondMovie) =>
+    ratingSort === "highest"
+      ? secondMovie.rating - firstMovie.rating
+      : firstMovie.rating - secondMovie.rating
   );
 
   function handleSearchChange(event) {
@@ -84,10 +90,21 @@ function Home() {
               ))}
             </select>
           </label>
+
+          <label className="rating-sort">
+            <span>Sort by rating</span>
+            <select
+              value={ratingSort}
+              onChange={(event) => setRatingSort(event.target.value)}
+            >
+              <option value="highest">Highest → Lowest</option>
+              <option value="lowest">Lowest → Highest</option>
+            </select>
+          </label>
         </div>
       </section>
 
-      <MovieGrid movies={filteredMovies} />
+      <MovieGrid movies={sortedMovies} />
     </>
   );
 }
