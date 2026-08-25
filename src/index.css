@@ -23,7 +23,8 @@ a {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -111,7 +112,8 @@ main {
 }
 
 .nav-search input:focus,
-.movie-search input:focus {
+.movie-search input:focus,
+.genre-filter select:focus {
   outline: 3px solid rgba(215, 38, 61, 0.16);
   border-color: #d7263d;
 }
@@ -245,6 +247,31 @@ main {
   color: #506071;
   font-size: 0.9rem;
   font-weight: 800;
+}
+
+.collection-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.genre-filter {
+  display: grid;
+  gap: 6px;
+  color: #506071;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.genre-filter select {
+  min-width: 150px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 36px 10px 12px;
+  background: #ffffff;
+  color: #18212f;
+  cursor: pointer;
 }
 
 .movie-grid {
@@ -476,11 +503,17 @@ main {
   }
 
   .nav-search input,
-  .movie-search input {
+  .movie-search input,
+  .genre-filter select {
     width: 100%;
   }
 
   .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .collection-controls {
     align-items: stretch;
     flex-direction: column;
   }
