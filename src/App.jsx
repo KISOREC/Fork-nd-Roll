@@ -8,6 +8,15 @@ import Watchlist from "./pages/Watchlist.jsx";
 import movies from "./data/movies.js";
 
 const WATCHLIST_STORAGE_KEY = "cineScopeWatchlist";
+const THEME_STORAGE_KEY = "cineScopeTheme";
+
+function getStoredTheme() {
+  const storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  return storedTheme === "dark" || storedTheme === "light"
+    ? storedTheme
+    : "light";
+}
 
 function getStoredWatchlist() {
   try {
@@ -30,6 +39,7 @@ function getStoredWatchlist() {
 
 function App() {
   const [watchlistIds, setWatchlistIds] = useState(getStoredWatchlist);
+  const [theme, setTheme] = useState(getStoredTheme);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -37,6 +47,11 @@ function App() {
       JSON.stringify(watchlistIds)
     );
   }, [watchlistIds]);
+
+  useEffect(() => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   function toggleWatchlist(movieId) {
     setWatchlistIds((currentWatchlist) =>
@@ -46,9 +61,19 @@ function App() {
     );
   }
 
+  function toggleTheme() {
+    setTheme((currentTheme) =>
+      currentTheme === "light" ? "dark" : "light"
+    );
+  }
+
   return (
-    <div className="app">
-      <Navbar watchlistCount={watchlistIds.length} />
+    <div className="app" data-theme={theme}>
+      <Navbar
+        watchlistCount={watchlistIds.length}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
       <main>
         <Routes>
           <Route
