@@ -13,7 +13,7 @@ const genres = [
   "Animation"
 ];
 
-function Home({ watchlistIds, onToggleWatchlist }) {
+function Home({ watchlistIds, onToggleWatchlist, recentlyViewedIds }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedGenre, setSelectedGenre] = useState("All Genres");
   const [ratingSort, setRatingSort] = useState("highest");
@@ -31,6 +31,9 @@ function Home({ watchlistIds, onToggleWatchlist }) {
       ? secondMovie.rating - firstMovie.rating
       : firstMovie.rating - secondMovie.rating
   );
+  const recentlyViewedMovies = recentlyViewedIds
+    .map((movieId) => movies.find((movie) => movie.id === movieId))
+    .filter(Boolean);
 
   function handleSearchChange(event) {
     const value = event.target.value;
@@ -60,6 +63,23 @@ function Home({ watchlistIds, onToggleWatchlist }) {
         </div>
         <img src={featuredMovie.poster} alt={`${featuredMovie.title} poster`} />
       </section>
+
+      {recentlyViewedMovies.length > 0 && (
+        <section className="recently-viewed">
+          <div className="recently-viewed-heading">
+            <div>
+              <p className="eyebrow">Keep Watching</p>
+              <h2>Recently Viewed</h2>
+            </div>
+            <span>{recentlyViewedMovies.length} recent</span>
+          </div>
+          <MovieGrid
+            movies={recentlyViewedMovies}
+            watchlistIds={watchlistIds}
+            onToggleWatchlist={onToggleWatchlist}
+          />
+        </section>
+      )}
 
       <section className="section-heading" id="movies">
         <div>
