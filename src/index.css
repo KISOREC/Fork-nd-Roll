@@ -162,6 +162,15 @@ main {
   font-size: 0.92rem;
 }
 
+.button-secondary {
+  color: #9f1d2f;
+  background: #fff2f4;
+}
+
+.button-secondary:hover {
+  background: #ffe0e5;
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
@@ -339,6 +348,13 @@ main {
   padding-top: 18px;
 }
 
+.movie-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .rating {
   color: #b7791f;
   font-weight: 900;
@@ -420,6 +436,32 @@ main {
 
 .cast-section {
   margin-top: 26px;
+}
+
+.details-watchlist-button {
+  margin-top: 26px;
+}
+
+.watchlist-page {
+  margin: 34px 0 48px;
+}
+
+.watchlist-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.watchlist-heading h1 {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+.watchlist-heading span {
+  color: #506071;
+  font-weight: 800;
 }
 
 .cast-section h2 {
@@ -528,6 +570,16 @@ main {
 
   .movie-card-footer {
     align-items: stretch;
+    flex-direction: column;
+  }
+
+  .movie-card-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .watchlist-heading {
+    align-items: flex-start;
     flex-direction: column;
   }
 

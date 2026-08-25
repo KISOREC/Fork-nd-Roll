@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, isInWatchlist, onToggleWatchlist }) {
   return (
     <article className="movie-card">
       <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -14,9 +14,18 @@ function MovieCard({ movie }) {
         <p>{movie.description}</p>
         <div className="movie-card-footer">
           <span className="rating">★ {movie.rating}</span>
-          <Link className="button button-small" to={`/movies/${movie.id}`}>
-            View Details
-          </Link>
+          <div className="movie-card-actions">
+            <button
+              className="button button-small button-secondary"
+              type="button"
+              onClick={() => onToggleWatchlist(movie.id)}
+            >
+              {isInWatchlist ? "Remove" : "Add to Watchlist"}
+            </button>
+            <Link className="button button-small" to={`/movies/${movie.id}`}>
+              View Details
+            </Link>
+          </div>
         </div>
       </div>
     </article>

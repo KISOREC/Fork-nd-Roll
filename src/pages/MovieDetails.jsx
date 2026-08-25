@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import movies from "../data/movies.js";
 
-function MovieDetails() {
+function MovieDetails({ watchlistIds, onToggleWatchlist }) {
   const { movieId } = useParams();
   const movie = movies.find((item) => item.id === Number(movieId));
 
@@ -58,6 +58,16 @@ function MovieDetails() {
               ))}
             </ul>
           </div>
+
+          <button
+            className="button details-watchlist-button"
+            type="button"
+            onClick={() => onToggleWatchlist(movie.id)}
+          >
+            {watchlistIds.includes(movie.id)
+              ? "Remove from Watchlist"
+              : "Add to Watchlist"}
+          </button>
         </div>
       </div>
     </section>
